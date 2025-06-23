@@ -27,17 +27,21 @@ RUN groupadd -g ${U_ID} ${GROUPNAME} \
 # 作業ディレクトリ(Docker関連がある場所)
 WORKDIR /app
 
+# ------------------------------
+
 # アプリケーション用ディレクトリが無ければ作成(初回用)
-RUN mkdir rails_app
+# RUN mkdir rails_app
 
-# GemfileとGemfile.lockを先にコピー
-COPY ./Gemfile ./Gemfile.lock ./rails_app/
+# # GemfileとGemfile.lockを先にコピー
+# COPY ./Gemfile ./Gemfile.lock ./rails_app/
 
-# bundlerとGemのインストール
-RUN gem install bundler && bundle install
+# # bundlerとGemのインストール
+# RUN gem install bundler && bundle install
 
-# アプリケーションファイル全体をコピー
-COPY . .
+# # アプリケーションファイル全体をコピー
+# COPY . .
+
+# ------------------------------
 
 # ポート公開（開発用に3000）
 EXPOSE 3000
