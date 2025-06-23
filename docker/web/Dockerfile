@@ -15,6 +15,7 @@ RUN apt-get update -qq && apt-get install -y \
   bash \
   git \
   curl \
+  sudo \
   && rm -rf /var/lib/apt/lists/*
 
 

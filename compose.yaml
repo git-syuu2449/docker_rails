@@ -15,6 +15,9 @@ services:
       - "${APP_PORT}:3000"
     environment:
       - RAILS_ENV=${RAILS_ENV}
+    volumes:
+      - .:/app
+      - ~/.docker_bash_history:/appuser/.bash_history
     depends_on:
       - rails_db
 
