@@ -9,6 +9,7 @@ services:
         G_ID: ${G_ID}
         USERNAME: ${USERNAME}
         GROUPNAME: ${GROUPNAME}
+    command: sleep infinity
     user: "${U_ID}:${G_ID}" 
     ports:
       - "${APP_PORT}:3000"
@@ -25,6 +26,7 @@ services:
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
+    command: sleep infinity
     ports:
       - "${NGINX_PORT}:80"
     volumes:
