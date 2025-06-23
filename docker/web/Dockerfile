@@ -24,13 +24,16 @@ RUN groupadd -g ${U_ID} ${GROUPNAME} \
  && useradd -u ${G_ID} -g ${GROUPNAME} -m ${USERNAME} \
  && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# 作業ディレクトリ
+# 作業ディレクトリ(Docker関連がある場所)
 WORKDIR /app
 
-# GemfileとGemfile.lockを先にコピー # new後に有効化
-COPY ./Gemfile ./Gemfile.lock ./
+# アプリケーション用ディレクトリが無ければ作成(初回用)
+RUN mkdir rails_app
 
-# bundlerとGemのインストール # new後に有効化
+# GemfileとGemfile.lockを先にコピー
+COPY ./Gemfile ./Gemfile.lock ./rails_app/
+
+# bundlerとGemのインストール
 RUN gem install bundler && bundle install
 
 # アプリケーションファイル全体をコピー
@@ -42,4 +45,5 @@ EXPOSE 3000
 # 実行ユーザー切替
 USER ${USERNAME}
 
+# rails new後に使用可能。初回はsleep infinityする
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
