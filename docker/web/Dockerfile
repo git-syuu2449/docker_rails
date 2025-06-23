@@ -15,6 +15,7 @@ RUN apt-get update -qq && apt-get install -y \
   bash \
   git \
   curl \
+  sudo \
   && rm -rf /var/lib/apt/lists/*
 
 
@@ -27,10 +28,10 @@ RUN groupadd -g ${U_ID} ${GROUPNAME} \
 WORKDIR /app
 
 # GemfileとGemfile.lockを先にコピー # new後に有効化
-# COPY ./Gemfile ./Gemfile.lock ./
+COPY ./Gemfile ./Gemfile.lock ./
 
 # bundlerとGemのインストール # new後に有効化
-# RUN gem install bundler && bundle install
+RUN gem install bundler && bundle install
 
 # アプリケーションファイル全体をコピー
 COPY . .
@@ -41,4 +42,4 @@ EXPOSE 3000
 # 実行ユーザー切替
 USER ${USERNAME}
 
-CMD ["bash"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
