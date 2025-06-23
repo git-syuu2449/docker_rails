@@ -61,3 +61,29 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+
+
+# 追加
+
+gem 'dotenv-rails' # 環境変数を.envで管理
+
+group :development, :test do
+  gem "rspec-rails"       # テストフレームワーク
+  gem "factory_bot_rails" # テストデータ生成（fixture代替）
+  gem "faker"             # ダミーデータ生成
+  gem "pry-rails"         # デバッグ用（byebug代替）
+  
+  # pry用
+  gem "pry-byebug", group: [:development, :test]  # ステップ実行できるように
+  gem "pry-nav", group: [:development, :test]     # next / step / finish の強化
+end
+
+group :development do
+  gem "rubocop", require: false                # Linter
+  gem "rubocop-rails", require: false          # Rails用の拡張
+  gem "dotenv-rails"                           # `.env` 読み込み（Docker環境でも便利）
+  gem "bullet"                                 # N+1検出
+  gem "rack-mini-profiler"                     # ページごとの処理時間可視化
+  gem "annotate"                               # モデルにスキーマ情報をコメントで追記
+end

@@ -24,7 +24,7 @@ RUN groupadd -g ${U_ID} ${GROUPNAME} \
  && useradd -u ${G_ID} -g ${GROUPNAME} -m ${USERNAME} \
  && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# 作業ディレクトリ(Docker関連がある場所)
+# 作業ディレクトリ(Docker関連がある場所) docker/web/Dockerfile
 WORKDIR /app
 
 # ------------------------------
@@ -32,14 +32,22 @@ WORKDIR /app
 # アプリケーション用ディレクトリが無ければ作成(初回用)
 # RUN mkdir rails_app
 
-# # GemfileとGemfile.lockを先にコピー
-# COPY ./Gemfile ./Gemfile.lock ./rails_app/
+RUN ls -la # debug
+
+# # GemfileとGemfile.lockを先にコピー(初回用)
+COPY rails_app/Gemfile rails_app/Gemfile.lock /app/rails_app/
+
+# アプリケーション用のディレクトリで作業
+WORKDIR /app/rails_app
 
 # # bundlerとGemのインストール
-# RUN gem install bundler && bundle install
+RUN gem install bundler && bundle install
+
+# pumaのバインド先のディレクトリを作成
+RUN mkdir -p /app/rails_app/tmp/sockets
 
 # # アプリケーションファイル全体をコピー
-# COPY . .
+COPY . .
 
 # ------------------------------
 
