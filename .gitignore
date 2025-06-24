@@ -6,6 +6,9 @@
 # Dockerに使用する.env
 .env*
 
+# .bk全般
+*.bk
+
 # Docker内の永続ボリューム（MySQL/PostgreSQLなど）
 docker/db/data/
 

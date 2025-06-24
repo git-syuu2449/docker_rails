@@ -10,7 +10,6 @@ ARG GROUPNAME=appgroup
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   libpq-dev \
-  nodejs \
   yarn \
   bash \
   git \
@@ -18,36 +17,27 @@ RUN apt-get update -qq && apt-get install -y \
   sudo \
   && rm -rf /var/lib/apt/lists/*
 
+# nodejsを別途インストール(apt-getは古い為)
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+ && apt-get install -y nodejs \
+ && npm install -g npm vite vue
+
 
 # ユーザー作成 + sudo権限付与
 RUN groupadd -g ${U_ID} ${GROUPNAME} \
  && useradd -u ${G_ID} -g ${GROUPNAME} -m ${USERNAME} \
  && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
+ # ------------------------------
+
 # 作業ディレクトリ(Docker関連がある場所) docker/web/Dockerfile
 WORKDIR /app
-
-# ------------------------------
-
-# アプリケーション用ディレクトリが無ければ作成(初回用)
-# RUN mkdir rails_app
-
-RUN ls -la # debug
-
-# # GemfileとGemfile.lockを先にコピー(初回用)
-COPY rails_app/Gemfile rails_app/Gemfile.lock /app/rails_app/
-
-# アプリケーション用のディレクトリで作業
-WORKDIR /app/rails_app
-
-# # bundlerとGemのインストール
-RUN gem install bundler && bundle install
 
 # pumaのバインド先のディレクトリを作成
 RUN mkdir -p /app/rails_app/tmp/sockets
 
-# # アプリケーションファイル全体をコピー
-COPY . .
+# アプリケーション用のディレクトリで作業
+WORKDIR /app/rails_app
 
 # ------------------------------
 
@@ -58,4 +48,5 @@ EXPOSE 3000
 USER ${USERNAME}
 
 # rails new後に使用可能。初回はsleep infinityする
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["bash", "-c", "bundle install && bundle exec puma -C config/puma.rb"]

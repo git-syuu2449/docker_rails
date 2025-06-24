@@ -23,8 +23,10 @@ Nginx + PUMA + PostgreSQL + PGAdmin
 - PGA 9.4
 - Bundler version 2.6.9
 - puma version 6.6.0
-- node.js v18.19.0
+- node.js v20.19.3
+- npm 11.4.2
 - nginx version: nginx/1.27.5
+
 
 追記
 
@@ -122,6 +124,7 @@ RAILS_ENV=development
 - bullet
 - rack-mini-profiler
 - annotate
+- vite_rails
 
 
 ### VSCode
