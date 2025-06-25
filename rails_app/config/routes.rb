@@ -3,19 +3,23 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :users
 
-  # root
-  root to: "sample#index"
+  # users
+  namespace :users do
+    root to: "samples#index"
 
-  get "/sample", controller: "sample", action: :index
+    get "/samples", controller: "samples", action: :index
+  end
 
-  # admin
-  namespace :admin do
+  # admins
+  namespace :admins do
+    root to: "samples#index"
+    get "/samples", controller: "samples", action: :index
   end
 
   # api
   namespace :api do
-    get "sample/index"
-    get "sample/create"
+    get "samples/index"
+    get "samples/create"
     namespace :v1 do
       # resources :users, only: [:index, :create]
     end

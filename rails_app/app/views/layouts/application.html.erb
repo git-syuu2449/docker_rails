@@ -29,13 +29,27 @@
 
   <body class="font-sans antialiased">
     <%# ヘッダー ナビゲーション:ログイン状態で切り替え %>
-    <%= render 'shared/header' %>
+    <% if user_signed_in? %>
+      <%= render 'shared/user/header' %>
+    <% end %>
+    <% if admin_signed_in? %>
+      <%= render 'shared/admin/header' %>
+    <% end %>
+    <%# 未ログイン %>
+    <% unless user_signed_in? || admin_signed_in? %>
+      <%= render 'shared/guest/header' %>
+    <% end %>
     <main>
 
       <%# 個別のView %>
       <%= yield %>
     </main>
     <%# フッター %>
-    <%= render 'shared/footer' %>
+    <% if user_signed_in? %>
+      <%= render 'shared/user/footer' %>
+    <% end %>
+    <% if admin_signed_in? %>
+      <%= render 'shared/admin/footer' %>
+    <% end %>
   </body>
 </html>

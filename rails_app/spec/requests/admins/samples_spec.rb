@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Samples", type: :request do
+RSpec.describe "Admins::Samples", type: :request do
   describe "GET /index" do
     it "returns http success" do
-      get "/sample/index"
+      get "/admin/sample/index"
       expect(response).to have_http_status(:success)
     end
   end
