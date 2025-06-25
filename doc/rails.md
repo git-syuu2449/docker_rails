@@ -236,7 +236,7 @@ rails g devise User
 rake db:migrate
 
 # コントローラの作成が行われないのでする
-rails g devise：controllers users
+rails g devise:controllers users
 
 # viewファイルの作成をする
 rails g devise:views users
