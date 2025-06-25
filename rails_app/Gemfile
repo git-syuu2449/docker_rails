@@ -64,9 +64,18 @@ end
 
 
 
-# 追加
+# -------------------------------- 追加 --------------------------------
 
-gem 'dotenv-rails' # 環境変数を.envで管理
+gem 'dotenv-rails'         # 環境変数を.envで管理
+gem 'devise'               # 認証機能。パワフルだが拡張に難あり
+gem 'devise-jwt'           # 認証機能.　Devise＋APIの場合
+# gem "jwt"                # JSON Web Token認証機能. API認証自前実装の場合
+# gem "rack-cors"          # SPAの場合.外部からのリクエストを許可
+# gem "bcrypt"             # 暗号化 deviseを使う場合は含まれている
+# gem 'ActiveAdmin'        # 管理画面
+
+gem 'vite_rails'          # vite
+# gem 'tailwindcss-rails'   # tailwindcss viteを使うので不要
 
 group :development, :test do
   gem "rspec-rails"       # テストフレームワーク
@@ -82,7 +91,6 @@ end
 group :development do
   gem "rubocop", require: false                # Linter
   gem "rubocop-rails", require: false          # Rails用の拡張
-  gem "dotenv-rails"                           # `.env` 読み込み（Docker環境でも便利）
   gem "bullet"                                 # N+1検出
   gem "rack-mini-profiler"                     # ページごとの処理時間可視化
   gem "annotate"                               # モデルにスキーマ情報をコメントで追記
