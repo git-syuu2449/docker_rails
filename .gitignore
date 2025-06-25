@@ -12,3 +12,4 @@
 # Docker内の永続ボリューム（MySQL/PostgreSQLなど）
 docker/db/data/
 
+docker_rails.code-workspace

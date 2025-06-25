@@ -1,9 +1,10 @@
 {
   "all": {
-    "sourceCodeDir": "app/javascript",
+    "sourceCodeDir": "app/assets",
     "watchAdditionalPaths": []
   },
   "development": {
+    "host": "localhost",
     "autoBuild": true,
     "publicOutputDir": "vite-dev",
     "port": 3036

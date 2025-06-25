@@ -75,7 +75,7 @@ gem 'devise-jwt'           # 認証機能.　Devise＋APIの場合
 # gem 'ActiveAdmin'        # 管理画面
 
 gem 'vite_rails'          # vite
-gem  'tailwindcss-rails'  # tailwindcss 
+# gem 'tailwindcss-rails'   # tailwindcss viteを使うので不要
 
 group :development, :test do
   gem "rspec-rails"       # テストフレームワーク

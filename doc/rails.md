@@ -48,7 +48,7 @@ railsインストール時にdockerfileが生成されるのは確認する。
 
 ## rails generate
 
-生成できる内容をまとめる
+生成できる内容を追加するタイミングでまとめる
 使用できるオプションも記載する。
 
 基本：  
@@ -75,7 +75,11 @@ lib/templates/以下
 
 #### controller
 
+- web  
 rails g controller コントローラ名 アクション名
+
+- api  
+rails g controller api/コントローラ名 アクション名 --no-helper --no-assets --no-view-specs --skip-template-engine
 
 ###### 生成されるファイル
 
@@ -143,13 +147,20 @@ rails g migration 名前 カラム名:型
 
 
 
+## rails new
+
+プロジェクトを作成する。  
+オプションでcssやDB周りの設定も可能。
+
+
+
 
 
 ## vite導入
 
 これらの導入は`setup.sh`にて行う。
 
-1. インストール  
+1. gem追加  
 Gemfileに`vite_rails`を追加  
 ```bash
 bundle install
@@ -178,6 +189,40 @@ bin/vite dev
 bin/rails server
 ```
 
+# tailscss導入
+
+1. gem追加
+Gemfileに`tailwindcss-rails`を追加
+```bash
+bundle install
+```
+
+2. パッケージインストール
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+
+3. 初期化
+```bash
+npx tailwindcss init
+```
+
+## vite導入後の注意点
+
+これはviteの項を別途作って切り出すか。
+
+1. 階層の変更
+
+Railsのデフォルトは app/assets以下にstyleseets,images, app以下にjavascriptが存在する。  
+viteを使用する場合のパスはapp/frontend/entrypoints/になる。  
+erbでvite_stylesheet_tagを使用すると/vite/entrypoints/のパスが生成される。
+これは、config/vite.json と vite-plugin-ruby の仕様に基づいて生成される。
+/vite/entrypoints/... は仮想パスで、初期設定の場合は上のパスになる。
+
+config/vite.json
+
+entrypointsDir
+
 
 
 ## リリース時の注意
@@ -197,3 +242,7 @@ npm run build
 ```bash
 assets:clobber
 ```
+
+
+> 参考  
+https://railsguides.jp/

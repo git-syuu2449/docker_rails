@@ -13,7 +13,8 @@ services:
     user: "${U_ID}:${G_ID}" 
     ports:
       - "${APP_PORT}:3000"
-      - 5173:5173 # vite
+      - 3036:3036 # vite dev
+      - 3037:3037 # vite test
     environment:
       - RAILS_ENV=${RAILS_ENV}
     volumes:
