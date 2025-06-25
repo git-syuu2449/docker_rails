@@ -1,4 +1,12 @@
 <nav>
-    <%= link_to 'Home', root_path %>
-    <%= link_to 'Sample', sample_path %>
+    <% if user_signed_in? %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Sample', sample_path %>
+    <%# <% elsif admin_signed_in? %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Sample', sample_path %> %>
+    <% else %>
+        <%= link_to 'Log in', new_user_session_path %>
+        <%= link_to 'Sign in', new_user_registration_path %>
+    <% end %>
 </nav>

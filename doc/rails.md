@@ -209,21 +209,116 @@ npx tailwindcss init
 
 ## vite導入後の注意点
 
-これはviteの項を別途作って切り出すか。
+これはvite+vue+tailwindの項を別途作って切り出すか。
 
 1. 階層の変更
 
 Railsのデフォルトは app/assets以下にstyleseets,images, app以下にjavascriptが存在する。  
-viteを使用する場合のパスはapp/frontend/entrypoints/になる。  
+viteを使用する場合のパスは `config/vite.json`で定義している`entrypointsDir`のパスになる。  
 erbでvite_stylesheet_tagを使用すると/vite/entrypoints/のパスが生成される。
 これは、config/vite.json と vite-plugin-ruby の仕様に基づいて生成される。
 /vite/entrypoints/... は仮想パスで、初期設定の場合は上のパスになる。
 
-config/vite.json
 
-entrypointsDir
+## devise導入
+
+gemfileに追加後、以下手順を行う
+```bash
+bundle install
+
+# deviseの設定ファイルを作成する
+rails g devise:install
+
+# モデル、マイグレーション作成
+rails g devise User
+
+# マイグレーション実施
+rake db:migrate
+
+# コントローラの作成が行われないのでする
+rails g devise：controllers users
+
+# viewファイルの作成をする
+rails g devise:views users
+
+# ルーティングを確認して追加されていることを確認
+> http://localhost:3000/rails/info/routes
+
+# DBを確認(それぞれの環境に合わせる)
+
+```
+
+複数のロールが必要な場合はテーブルを分けてログイン画面も分ける。  
+usersと書いてあるところをadminsに変更して実施する。  
+
+## devise-jwt導入
+
+Apiでの認証に使用する
+
+## Pundit導入
+
+認可用に使用する。  
+他候補としてcancancanがあるが、簡単な認可であればこっちでもいい。
+
+### 注意点
+
+app/models/user.rbで
+undefined method 'devise' for class User
+が発生する。
+
+1. gem追加漏れ
+2. Spring（アプリロ−ダー）でキャッシュされている
+3. 他のキャッシュが残っている
+
+などが考えられる。
+
+1. はbundle installし直す。
+2. は`DISABLE_SPRING=1`をコンソールで行う。
+3. はサーバー自体を再起動する。
+
+キャッシュされていると不具合が出やすいのでキャッシュは無効にしておくほうがいい。
+3のエラーはundefined method 'devise'と、routes周りのエラーがランダムに発生する現象が起きる。
+もしくはロード順の関係。
+
+明確な対応方法  
+config/initializers/にdeviseを明示的にdeviseの読み込みをするファイルを追加する  
+```rb
+# rails_app/config/initializers/devise_load_fix.rb
+require 'devise'
+```
+
+`config/initializers/`は配置してあるとアプリ起動時に一度だけ読み込む。  
+別途設定等は不要。（と思う）
 
 
+## 
+
+## サーバー再起動
+
+Puma+Nginx構成で以下の方法をとる
+
+1. Pumaの「ホットリスタート」機能  
+ダウンタイムなしで再起動
+```bash
+docker compose exec rails_app pkill -USR2 -f puma
+# コンテナ内
+pkill -USR2 -f puma
+```
+
+2. Pumaを開発モードで実施  
+```bash
+# config/environments/development.rb
+config.cache_classes = false
+config.reload_classes_only_on_change = true
+
+```
+Puma設定変更時やGemfile変更時は効かない為、1を推奨
+
+3. dockerでリスタート  
+そのまま。アタッチが解除されるので面倒  
+```bash
+docker compose restart rails_app
+```
 
 ## リリース時の注意
 
@@ -246,3 +341,4 @@ assets:clobber
 
 > 参考  
 https://railsguides.jp/
+https://www.sejuku.net/blog/13378
