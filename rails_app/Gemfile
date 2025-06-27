@@ -66,9 +66,13 @@ end
 
 # -------------------------------- 追加 --------------------------------
 
+gem 'discard'              # soft delete
+gem 'rails-i18n'           # i18n拡張
+
 gem 'dotenv-rails'         # 環境変数を.envで管理
 gem 'devise'               # 認証機能。パワフルだが拡張に難あり
 gem 'devise-jwt'           # 認証機能.　Devise＋APIの場合
+gem 'pundit'               # 認可
 # gem "jwt"                # JSON Web Token認証機能. API認証自前実装の場合
 # gem "rack-cors"          # SPAの場合.外部からのリクエストを許可
 # gem "bcrypt"             # 暗号化 deviseを使う場合は含まれている

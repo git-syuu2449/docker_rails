@@ -28,17 +28,28 @@
   </head>
 
   <body class="font-sans antialiased">
-    <%# ヘッダー ナビゲーション:ログイン状態で切り替え %>
-    <% if user_signed_in? %>
-      <%= render 'shared/user/header' %>
-    <% end %>
-    <% if admin_signed_in? %>
-      <%= render 'shared/admin/header' %>
-    <% end %>
-    <%# 未ログイン %>
-    <% unless user_signed_in? || admin_signed_in? %>
-      <%= render 'shared/guest/header' %>
-    <% end %>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+              <%# ヘッダー ナビゲーション:ログイン状態で切り替え %>
+              <% if user_signed_in? %>
+                <%= render 'shared/user/header' %>
+              <% end %>
+              <% if admin_signed_in? %>
+                <%= render 'shared/admin/header' %>
+              <% end %>
+              <%# 未ログイン %>
+              <% unless user_signed_in? || admin_signed_in? %>
+                <%= render 'shared/guest/header' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <main>
 
       <%# 個別のView %>
