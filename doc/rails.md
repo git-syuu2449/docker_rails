@@ -414,6 +414,7 @@ rails db:migrate:reset
 ```bash
 # migrate + seed
 rails db:reset
+rails db:migrate
 # seed load
 rails db:seed
 # seed reset

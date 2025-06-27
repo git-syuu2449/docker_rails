@@ -71,6 +71,7 @@ gem 'rails-i18n'           # i18n拡張
 
 gem 'dotenv-rails'         # 環境変数を.envで管理
 gem 'devise'               # 認証機能。パワフルだが拡張に難あり
+gem 'devise-i18n'          # deviseの日本語化
 gem 'devise-jwt'           # 認証機能.　Devise＋APIの場合
 gem 'pundit'               # 認可
 # gem "jwt"                # JSON Web Token認証機能. API認証自前実装の場合

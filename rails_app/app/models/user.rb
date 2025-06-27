@@ -1,16 +1,20 @@
 class User < ApplicationRecord
 
+  # デバイス　DB認証可能
   devise :database_authenticatable,
-         :registerable,
-         :recoverable,
-         :rememberable,
-         :validatable,
-         # jwt
-         :jwt_authenticatable,
-         jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+      # 登録
+      :registerable,
+      # 回復
+      :recoverable,
+      # パスワード忘れ
+      :rememberable,
+      # バリデーション
+      :validatable,
+      # JWT によるログイン／認証を使う
+      :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
   
   # 権限
-  enum role: { general: 0, editor: 1, admin: 2 }
+  enum :role, { general: 0, editor: 1, admin: 2 }, prefix: true
 
   def has_role?(target)
     role == target.to_s
