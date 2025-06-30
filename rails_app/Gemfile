@@ -86,6 +86,7 @@ group :development, :test do
   gem "rspec-rails"       # テストフレームワーク
   gem "factory_bot_rails" # テストデータ生成（fixture代替）
   gem "faker"             # ダミーデータ生成
+  gem "gimei"             # 日本用ダミーデータ
   gem "pry-rails"         # デバッグ用（byebug代替）
   
   # pry用

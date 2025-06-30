@@ -1,3 +1,20 @@
 <div class="u-section-in-wrapper">
   <h2 class="text-2xl font-semibold text-gray-800 mb-6">サンプルページ</h2>
+
+  <div id="app-vue">
+    <sample-area
+      :get-url="'<%= j url_for(api_samples_index_path) %>'"
+    ></sample-area>
+  </div>
+
 </div>
+
+<%# cssタグをapplication.html.erbのstylesheetタグに出力:jsで読み込む %>
+<%# content_for :stylesheet do %>
+  <%#= vite_stylesheet_tag 'css/samples/index' %>
+<%# end %>
+<%# scriptタグをapplication.html.erbのscriptタグに出力 %>
+<% content_for :scripts do %>
+  <!-- 画面固有のjs -->
+  <%= vite_javascript_tag 'js/samples/index' %>
+<% end %>

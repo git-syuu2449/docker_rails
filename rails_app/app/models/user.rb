@@ -8,6 +8,8 @@ class User < ApplicationRecord
       :recoverable,
       # パスワード忘れ
       :rememberable,
+      # email確認
+      # :confirmable,
       # バリデーション
       :validatable,
       # JWT によるログイン／認証を使う

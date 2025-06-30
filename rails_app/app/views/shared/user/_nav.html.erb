@@ -1,4 +1,5 @@
 <nav>
-    <%= link_to 'Home', user_root_path %>
-    <%= link_to 'Sample', sample_path %>
+    <%= link_to 'ホーム', users_root_path %>
+    <%= link_to 'サンプル', users_samples_path %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 </nav>

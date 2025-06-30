@@ -216,9 +216,15 @@ npx tailwindcss init
 
 Railsのデフォルトは app/assets以下にstyleseets,images, app以下にjavascriptが存在する。  
 viteを使用する場合のパスは `config/vite.json`で定義している`entrypointsDir`のパスになる。  
+`sourceCodeDir`  
 erbでvite_stylesheet_tagを使用すると/vite/entrypoints/のパスが生成される。
 これは、config/vite.json と vite-plugin-ruby の仕様に基づいて生成される。
 /vite/entrypoints/... は仮想パスで、初期設定の場合は上のパスになる。
+
+build後、manifestの更新がされる  
+cat public/vite-dev/.vite/manifest.json
+
+このファイルのパスと実際のディレクトリ構造、erbでの呼び出しパスが一致していないとエラーとなる。
 
 
 ## devise導入

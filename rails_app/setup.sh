@@ -9,7 +9,7 @@ echo "必要な npm パッケージをインストール（開発依存）"
 
 npm install -D \
   tailwindcss@3.4.1 \
-  tailwindcss/forms \
+  @tailwindcss/forms \
   postcss \
   autoprefixer \
   vue \
