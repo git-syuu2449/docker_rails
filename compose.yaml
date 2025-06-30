@@ -10,11 +10,15 @@ services:
         USERNAME: ${USERNAME}
         GROUPNAME: ${GROUPNAME}
     # command: sleep infinity # 待機状態にする
-    user: "${U_ID}:${G_ID}" 
+    user: "${U_ID}:${G_ID}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "${APP_PORT}:3000"
       - 3036:3036 # vite dev
+      - 5173:5173
       - 3037:3037 # vite test
+      - 5174:5174
     environment:
       - RAILS_ENV=${RAILS_ENV}
     volumes:

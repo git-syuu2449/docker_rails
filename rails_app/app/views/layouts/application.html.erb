@@ -10,6 +10,7 @@
     <%= csp_meta_tag %>
     <!-- vite_clientタグ -->
     <%= vite_client_tag %>
+    <%# デバッグ %>
 
     <%= yield :head %>
 
@@ -21,7 +22,6 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
   </head>
 
   <body class="font-sans antialiased">
@@ -58,6 +58,17 @@
     <%# if admin_signed_in? %>
       <%#= render 'shared/admin/footer' %>
     <%# end %>
+
+
+<% if defined?(ViteRuby) %>
+OK
+  <!-- ViteRuby定義されてる -->
+  <%= vite_client_tag %>
+<% else %>
+  <!-- ViteRuby未定義 -->
+  <p>vite_client_tag 出力失敗</p>
+<% end %>
+
 
 
       <%# 共通のJS %>

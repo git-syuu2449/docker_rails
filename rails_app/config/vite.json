@@ -1,18 +1,21 @@
 {
   "all": {
     "sourceCodeDir": "app/frontend",
-    "entrypointsDir": "app/frontend",
-    "watchAdditionalPaths": []
+    "watchAdditionalPaths": [],
+    "additionalEntrypoints": [
+      "~/js/**/*",
+      "~/css/**/*",
+      "~/images/**/*"
+    ]
   },
   "development": {
     "host": "localhost",
-    "autoBuild": true,
     "publicOutputDir": "vite-dev",
-    "port": 3036
+    "port": 5173
   },
   "test": {
     "autoBuild": true,
     "publicOutputDir": "vite-test",
-    "port": 3037
+    "port": 5174
   }
 }
