@@ -7,6 +7,7 @@ export default defineConfig({
     RubyPlugin(),
     vue(),
   ],
+  base: '/vite-dev/',
   server: {
     host: '0.0.0.0',
     port: 5173,

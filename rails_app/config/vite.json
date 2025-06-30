@@ -1,15 +1,18 @@
 {
   "all": {
     "sourceCodeDir": "app/frontend",
+    "entrypointsDir": "app/frontend",
     "watchAdditionalPaths": [],
     "additionalEntrypoints": [
-      "~/js/**/*",
+      "~/js/application.js",
+      "~/js/samples/*",
       "~/css/**/*",
       "~/images/**/*"
     ]
   },
   "development": {
-    "host": "localhost",
+    "autoBuild": true,
+    "host": "rails_vite",
     "publicOutputDir": "vite-dev",
     "port": 5173
   },

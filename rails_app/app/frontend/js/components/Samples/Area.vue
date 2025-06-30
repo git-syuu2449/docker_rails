@@ -51,6 +51,7 @@ const doSearch = async () => {
 
 // 表示時に取得
 onMounted(() => {
+  alert('OK')
   doSearch()
   // datas.value = "Vueから表示"
 

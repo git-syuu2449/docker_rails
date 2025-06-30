@@ -319,7 +319,7 @@ Puma+Nginx構成で以下の方法をとる
 1. Pumaの「ホットリスタート」機能  
 ダウンタイムなしで再起動
 ```bash
-docker compose exec rails_app pkill -USR2 -f puma
+docker compose exec rails_web pkill -USR2 -f puma
 # コンテナ内
 pkill -USR2 -f puma
 ```
@@ -336,7 +336,7 @@ Puma設定変更時やGemfile変更時は効かない為、1を推奨
 3. dockerでリスタート  
 そのまま。アタッチが解除されるので面倒  
 ```bash
-docker compose restart rails_app
+docker compose restart rails_web
 ```
 
 
