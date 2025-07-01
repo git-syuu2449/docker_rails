@@ -16,7 +16,9 @@ services:
       - 3036:3036 # vite dev
       - 3037:3037 # vite test
     environment:
-      - RAILS_ENV=${RAILS_ENV}
+      RAILS_ENV: ${RAILS_ENV}
+      VITE_RUBY_HOST: "0.0.0.0"
+      VITE_RUBY_PORT: 3036
     volumes:
       - .:/app
       - ~/.docker_bash_history:/appuser/.bash_history
