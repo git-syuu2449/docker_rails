@@ -11,10 +11,10 @@
 
 <%# cssタグをapplication.html.erbのstylesheetタグに出力:jsで読み込む %>
 <%# content_for :stylesheet do %>
-  <%= vite_stylesheet_tag 'css/samples/index' %>
+  <%= vite_stylesheet_tag 'css/samples/index.css' %>
 <%# end %>
 <%# scriptタグをapplication.html.erbのscriptタグに出力 %>
 <% content_for :scripts do %>
   <!-- 画面固有のjs -->
-  <%= vite_javascript_tag 'js/samples/index' %>
+  <%= vite_javascript_tag 'js/samples/index.ts' %>
 <% end %>
