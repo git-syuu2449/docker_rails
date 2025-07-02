@@ -10,18 +10,13 @@
     <%= csp_meta_tag %>
     <!-- vite_clientタグ -->
     <%= vite_client_tag %>
-    ここに出る
-    <% puts "vite_client_tag evaluated" %>
-    <%= Rails.env %>
-<%= Rails.env.development? %>
-    <%# デバッグ %>
 
     <%= yield :head %>
 
     <%# 共通のCSS: jsで読み込む %>
-    <%#= vite_stylesheet_tag 'css/application' %>
+    <%= vite_stylesheet_tag 'css/application' %>
     <%# ページ固有のCSS %>
-    <%#= yield :stylesheet %> 
+    <%= yield :stylesheet %> 
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -62,18 +57,6 @@
     <%# if admin_signed_in? %>
       <%#= render 'shared/admin/footer' %>
     <%# end %>
-
-
-<% if defined?(ViteRuby) %>
-OK
-  <!-- ViteRuby定義されてる -->
-  <%= vite_client_tag %>
-<% else %>
-  <!-- ViteRuby未定義 -->
-  <p>vite_client_tag 出力失敗</p>
-<% end %>
-
-
 
       <%# 共通のJS %>
       <%= vite_javascript_tag 'js/application' %>

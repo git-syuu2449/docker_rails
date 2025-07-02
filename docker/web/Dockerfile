@@ -14,8 +14,7 @@ RUN apt-get update -qq && apt-get install -y \
   bash \
   git \
   curl \
-  sudo \
-  && rm -rf /var/lib/apt/lists/*
+  sudo
 
 # nodejsを別途インストール(apt-getは古い為)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -30,24 +29,40 @@ RUN groupadd -g ${U_ID} ${GROUPNAME} \
 
  # ------------------------------
 
+# USER root(rails new時)
+
 # 作業ディレクトリ(Docker関連がある場所) docker/web/Dockerfile
+# /app/作成するプロジェクト/appが階層となる
 WORKDIR /app
 
-# pumaのバインド先のディレクトリを作成
-RUN mkdir -p /app/rails_app/tmp/sockets
-
-# アプリケーション用のディレクトリで作業
+# 作業ディレクトリとGemfileの事前コピー
 WORKDIR /app/rails_app
+COPY rails_app/Gemfile rails_app/Gemfile.lock ./
+RUN gem install bundler && bundle install --verbose
+
+# entrypointのコピー
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
+# アプリ全体をコピー（初期rails new後用）
+COPY . .
+
+# ソケット用ディレクトリを作成（Pumaで使用する場合）
+RUN sudo mkdir -p /app/rails_app/tmp/sockets
+
+# 開発用の実行ユーザーに権限変更
+RUN sudo chown -R appuser:appgroup /app/rails_app
+RUN sudo chown -R appuser:appgroup /usr/local/bundle/
+
 
 # ------------------------------
-
-# ポート公開（開発用に3000）
-EXPOSE 3000
 
 # 実行ユーザー切替
 USER ${USERNAME}
 
-# rails new後に使用可能。初回はsleep infinityする
-# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
-# CMD ["bash", "-c", "bundle install && bundle exec puma -C config/puma.rb"]
-CMD ["bash", "-c", "bundle install && bin/rails s -p 3000 -b '0.0.0.0'"]
+# rails new後に使用可能。初回(rails new前)はsleep infinityする
+# CMD ["bash", "-c", "bin/rails s -p 3000 -b '0.0.0.0'"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["bash", "-c", "bundle install && bin/rails s -p 3000 -b '0.0.0.0'"]
+CMD ["bash", "-c", "bundle exec puma -C config/puma.rb"]

@@ -15,32 +15,18 @@ services:
       - "host.docker.internal:host-gateway"
     ports:
       - "${APP_PORT}:3000"
+      - ${VITE_RUBY_PORT}:3036 # vite dev
+      - ${VITE_RUBY_TEST_PORT}:3037 # vite test
     environment:
       RAILS_ENV: ${RAILS_ENV}
-      VITE_RUBY_HOST: "0.0.0.0"
-      VITE_RUBY_PORT: 3036
+      VITE_RUBY_HOST: ${VITE_RUBY_HOST}
+      VITE_RUBY_PORT: ${VITE_RUBY_PORT}
     volumes:
       - .:/app
       - ~/.docker_bash_history:/appuser/.bash_history
     depends_on:
       - rails_db
   
-# ---------------------------------------------------------------
-  rails_vite:
-    build:
-      context: .
-      dockerfile: docker/vite/Dockerfile
-    ports:
-      - "5173:5173"
-      - "5174:5174"
-    working_dir: /app/rails_app
-    # command: npm run dev
-    command: sleep infinity # 待機状態にする
-    volumes:
-      - .:/app
-    environment:
-      - NODE_ENV=development
-
 # ---------------------------------------------------------------
 
   rails_nginx:

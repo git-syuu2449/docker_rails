@@ -15,7 +15,8 @@ npm install -D \
   vue \
   vite \
   @vitejs/plugin-vue \
-  axios
+  axios \
+  @types/node
 
 # tailwind v4以降を使うなら以下が必要
 # @tailwindcss/vite \

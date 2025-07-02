@@ -24,12 +24,14 @@ const props = defineProps({
 })
 
 // API取得後の値
-const datas = ref("")
+const datas = ref({})
 const success = ref(false)
 
-const params = computed(() => ({
-  
+const params = computed(() => ({  
 }))
+
+console.log(props.getUrl)
+
 // 一覧をリフレッシュ
 const doSearch = async () => {
   success.value = false
@@ -51,10 +53,7 @@ const doSearch = async () => {
 
 // 表示時に取得
 onMounted(() => {
-  alert('OK')
   doSearch()
-  // datas.value = "Vueから表示"
-
 })
 
 </script>

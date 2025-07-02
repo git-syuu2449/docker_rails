@@ -3,17 +3,15 @@
 
   <div id="app-vue">
     <sample-area
-      :get-url="'<%= j url_for(api_samples_index_path) %>'"
+      :get-url="'<%= j url_for(api_samples_path) %>'"
     ></sample-area>
   </div>
 
 </div>
-ここに出る
-<%= vite_client_tag %>
-ここに出る
+
 <%# cssタグをapplication.html.erbのstylesheetタグに出力:jsで読み込む %>
 <%# content_for :stylesheet do %>
-  <%#= vite_stylesheet_tag 'css/samples/index' %>
+  <%= vite_stylesheet_tag 'css/samples/index' %>
 <%# end %>
 <%# scriptタグをapplication.html.erbのscriptタグに出力 %>
 <% content_for :scripts do %>

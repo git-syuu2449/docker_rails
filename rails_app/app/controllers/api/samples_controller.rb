@@ -1,5 +1,5 @@
 module Api
-  class Api::SampleController < ApplicationController
+  class Api::SamplesController < ApplicationController
 
     include Pundit
 

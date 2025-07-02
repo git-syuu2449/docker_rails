@@ -23,8 +23,7 @@ Rails.application.routes.draw do
 
   # api
   namespace :api do
-    get "samples/index"
-    get "samples/create"
+    resources :samples, only: [:index, :create]
     namespace :v1 do
       # resources :users, only: [:index, :create]
     end
