@@ -48,5 +48,6 @@ EXPOSE 3000
 USER ${USERNAME}
 
 # rails new後に使用可能。初回はsleep infinityする
-CMD ["bash", "-c", "bundle install && bundle exec puma -C config/puma.rb"]
-# CMD ["bash", "-c", "bundle install && rails s -b 0.0.0.0"]
+# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# CMD ["bash", "-c", "bundle install && bundle exec puma -C config/puma.rb"]
+CMD ["bash", "-c", "bundle install && bin/rails s -p 3000 -b '0.0.0.0'"]
