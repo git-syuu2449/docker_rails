@@ -7,12 +7,12 @@
         </template>
 
       <div
-        v-for="item in datas"
+        v-for="item in props.datas"
         :key="item.id"
         class="bg-white rounded-2xl shadow p-4"
       >
         <div class="text-lg font-semibold text-gray-800">
-            {{ item.question_title }}
+            {{ item.name }}
         </div>
       </div>
 
@@ -21,8 +21,8 @@
 
 <script setup lang="ts">
 
-const props = defineProps({
-  datas: Object,
-})
+const props = defineProps<{ datas: Array<any> }>()
+
+console.log(props.datas)
 
 </script>

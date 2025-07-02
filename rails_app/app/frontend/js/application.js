@@ -1,5 +1,5 @@
 // tailwind用
-import "../css/application.css";
+import "@css/application.css";
 
 import axios from 'axios';
 console.log("application.js");

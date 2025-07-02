@@ -14,7 +14,8 @@ RUN apt-get update -qq && apt-get install -y \
   bash \
   git \
   curl \
-  sudo
+  sudo \
+  vim
 
 # nodejsを別途インストール(apt-getは古い為)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \

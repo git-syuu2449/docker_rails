@@ -18,6 +18,18 @@ npm install -D \
   axios \
   @types/node
 
+echo "ESLintに必要なパッケージをインストール"
+
+npm install -D \
+  eslint@9 \
+  @eslint/js \
+  eslint-plugin-vue \
+  vue-eslint-parser \
+  @typescript-eslint/parser \
+  @typescript-eslint/eslint-plugin \
+  typescript
+
+
 # tailwind v4以降を使うなら以下が必要
 # @tailwindcss/vite \
 # @tailwindcss/cli \
