@@ -15,7 +15,22 @@ npm install -D \
   vue \
   vite \
   @vitejs/plugin-vue \
-  axios
+  axios \
+  @types/node \
+  @rails/ujs \
+  @hotwired/turbo-rails
+
+echo "ESLintに必要なパッケージをインストール"
+
+npm install -D \
+  eslint@9 \
+  @eslint/js \
+  eslint-plugin-vue \
+  vue-eslint-parser \
+  @typescript-eslint/parser \
+  @typescript-eslint/eslint-plugin \
+  typescript
+
 
 # tailwind v4以降を使うなら以下が必要
 # @tailwindcss/vite \

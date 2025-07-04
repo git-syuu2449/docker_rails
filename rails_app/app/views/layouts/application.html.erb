@@ -5,37 +5,55 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <!-- csrf_metaタグ -->
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- vite_clientタグ -->
     <%= vite_client_tag %>
 
     <%= yield :head %>
 
-    <%# 共通のCSS %>
+    <%# 共通のCSS: jsで読み込む %>
     <%= vite_stylesheet_tag 'css/application' %>
     <%# ページ固有のCSS %>
     <%= yield :stylesheet %> 
 
-    <%# 共通のJS %>
-    <%= vite_javascript_tag 'js/application' %>
-    <%# ページ固有のJS %>
-    <%= yield :scripts %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
+    <!-- asset_path -->
+    <link rel="icon" href="<%= vite_asset_path 'images/icon.png' %>" type="image/png">
+    <link rel="icon" href="<%= vite_asset_path 'images/icon.svg' %>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<%= vite_asset_path 'images/icon.png' %>">
   </head>
 
   <body class="font-sans antialiased">
+
     <%# ヘッダー ナビゲーション:ログイン状態で切り替え %>
-    <%= render 'shared/header' %>
+    <% if user_signed_in? %>
+      <%= render 'shared/user/header' %>
+    <% end %>
+    <%# if admin_signed_in? %>
+      <%#= render 'shared/admin/header' %>
+    <%# end %>
+    <%# 未ログイン %>
+    <% unless user_signed_in? %>
+      <%= render 'shared/guest/header' %>
+    <% end %>
+    
     <main>
 
       <%# 個別のView %>
       <%= yield %>
     </main>
     <%# フッター %>
-    <%= render 'shared/footer' %>
+    <% if user_signed_in? %>
+      <%= render 'shared/user/footer' %>
+    <% end %>
+    <%# if admin_signed_in? %>
+      <%#= render 'shared/admin/footer' %>
+    <%# end %>
+
+      <%# 共通のJS %>
+      <%= vite_typescript_tag 'js/application' %>
+      <%# ページ固有のJS %>
+      <%= yield :scripts %>
   </body>
 </html>

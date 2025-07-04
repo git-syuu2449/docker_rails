@@ -10,21 +10,23 @@ services:
         USERNAME: ${USERNAME}
         GROUPNAME: ${GROUPNAME}
     # command: sleep infinity # 待機状態にする
-    user: "${U_ID}:${G_ID}" 
+    user: "${U_ID}:${G_ID}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "${APP_PORT}:3000"
-      - 3036:3036 # vite dev
-      - 3037:3037 # vite test
+      - ${VITE_RUBY_PORT}:3036 # vite dev
+      - ${VITE_RUBY_TEST_PORT}:3037 # vite test
     environment:
       RAILS_ENV: ${RAILS_ENV}
-      VITE_RUBY_HOST: "0.0.0.0"
-      VITE_RUBY_PORT: 3036
+      VITE_RUBY_HOST: ${VITE_RUBY_HOST}
+      VITE_RUBY_PORT: ${VITE_RUBY_PORT}
     volumes:
       - .:/app
       - ~/.docker_bash_history:/appuser/.bash_history
     depends_on:
       - rails_db
-
+  
 # ---------------------------------------------------------------
 
   rails_nginx:

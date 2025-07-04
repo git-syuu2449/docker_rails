@@ -1,10 +1,11 @@
 {
   "all": {
-    "sourceCodeDir": "app/assets",
+    "sourceCodeDir": "app/frontend",
     "watchAdditionalPaths": [
-      "app/assets",
+      "app/frontend",
       "vendor/assets"
     ],
+    "entrypointsDir": "app/frontend",
     "additionalEntrypoints": [
       "~/js/**/*",
       "~/css/**/*",

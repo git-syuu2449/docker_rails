@@ -11,17 +11,32 @@ module RailsApp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.i18n.default_locale = :ja
+    config.i18n.available_locales = [:ja, :en]
+
+    config.time_zone = "Tokyo"
+    config.active_record.default_timezone = :local
+
+    # 各ディレクトリに配置したi18nを読み込む。明示的に記載
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.{rb,yml}')]
+
+    # autoload/eager_load
+    config.autoload_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join('lib')
+
+    # generatorカスタマイズ
+    config.generators do |g|
+      g.test_framework :rspec, fixture: false
+      g.helper false
+      g.assets false
+      g.view_specs false
+      g.controller_specs false
+    end
+
+    # Asset pipeline
+    config.assets.enabled = true
+
   end
 end

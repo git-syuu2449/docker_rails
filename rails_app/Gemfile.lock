@@ -116,10 +116,15 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.14.0)
+      devise (>= 4.9.0)
+      rails-i18n
     devise-jwt (0.12.1)
       devise (~> 4.0)
       warden-jwt_auth (~> 0.10)
     diff-lcs (1.6.2)
+    discard (1.4.0)
+      activerecord (>= 4.2, < 9.0)
     dotenv (3.1.8)
     dotenv-rails (3.1.8)
       dotenv (= 3.1.8)
@@ -151,6 +156,7 @@ GEM
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
+    gimei (1.5.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.7)
@@ -258,9 +264,14 @@ GEM
     public_suffix (6.0.2)
     puma (6.6.0)
       nio4r (~> 2.0)
+    pundit (2.5.0)
+      activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.16)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-mini-profiler (4.0.0)
       rack (>= 1.2.0)
     rack-proxy (0.7.7)
@@ -293,6 +304,9 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
+    rails-i18n (8.0.1)
+      i18n (>= 0.7, < 2)
+      railties (>= 8.0.0, < 9)
     railties (8.0.2)
       actionpack (= 8.0.2)
       activesupport (= 8.0.2)
@@ -457,10 +471,13 @@ DEPENDENCIES
   capybara
   debug
   devise
+  devise-i18n
   devise-jwt
+  discard
   dotenv-rails
   factory_bot_rails
   faker
+  gimei
   importmap-rails
   jbuilder
   kamal
@@ -470,8 +487,11 @@ DEPENDENCIES
   pry-nav
   pry-rails
   puma (>= 5.0)
+  pundit
+  rack-cors
   rack-mini-profiler
   rails (~> 8.0.2)
+  rails-i18n
   rspec-rails
   rubocop
   rubocop-rails

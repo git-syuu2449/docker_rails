@@ -13,3 +13,4 @@
 docker/db/data/
 
 docker_rails.code-workspace
+rails_app/vendor/bundle/*
