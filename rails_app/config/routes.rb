@@ -1,7 +1,22 @@
 # access http://localhost:3000/rails/info/routes
 Rails.application.routes.draw do
-  # devise_for :admins
-  devise_for :users
+  
+  # deviseのコントローラをオーバーライド
+  devise_for :users,
+  controllers: {
+    sessions: "users/sessions",
+    registrations: "users/registrations",
+    passwords: "users/passwords",
+    confirmations: "users/confirmations",
+    unlocks: "users/unlocks"
+  },
+  path: 'users/',  # URLが /users/sign_in などになる
+  path_names: {
+    sign_in: 'sign_in',
+    sign_out: 'sign_out',
+    registration: 'sign_up'
+  }
+
 
   # users
   namespace :users do
@@ -10,22 +25,15 @@ Rails.application.routes.draw do
     get "/samples", controller: "samples", action: :index
   end
 
-  # deviseのログアウトがgetになる問題
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-  end
-
-  # admins 現状roleでわける。必要になったら分離
-  # namespace :admins do
-  #   root to: "samples#index"
-  #   get "/samples", controller: "samples", action: :index
-  # end
-
   # api
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     resources :samples, only: [:index, :create]
     namespace :v1 do
-      # resources :users, only: [:index, :create]
+      # jwt用
+      devise_scope :user do
+        post 'login', to: 'sessions#create'
+        # delete 'logout', to: 'sessions#destroy'
+      end
     end
   end
 

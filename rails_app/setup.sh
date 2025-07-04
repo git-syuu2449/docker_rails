@@ -16,7 +16,9 @@ npm install -D \
   vite \
   @vitejs/plugin-vue \
   axios \
-  @types/node
+  @types/node \
+  @rails/ujs \
+  @hotwired/turbo-rails
 
 echo "ESLintに必要なパッケージをインストール"
 

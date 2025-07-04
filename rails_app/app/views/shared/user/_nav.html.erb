@@ -1,5 +1,28 @@
-<nav>
-    <%= link_to 'ホーム', users_root_path %>
-    <%= link_to 'サンプル', users_samples_path %>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+<nav aria-label="Global" class="hidden md:block">
+    <ul class="flex items-center gap-6 text-sm">
+        <li>
+        <%= link_to 'ホーム', users_root_path, class: "text-gray-500 transition hover:text-gray-500/75" %>
+        </li>
+
+        <li>
+        <%= link_to 'サンプル', users_samples_path, class: "text-gray-500 transition hover:text-gray-500/75" %>
+        </li>
+    </ul>
 </nav>
+
+<% # ログイン関連 %>
+<div class="flex items-center gap-4">
+    <div class="sm:flex sm:gap-4">
+        <%= button_to "ログアウト", destroy_user_session_path,
+        id: "logout-btn",
+        method: :delete, data: { turbo: false },
+        class: "hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block" 
+        %>
+        <%#= link_to "ログアウト", destroy_user_session_path, method: :delete, id: "logout-btn", data: { turbo: false }, class: "hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 sm:block" %>
+    </div>
+</div>
+    
+
+
+

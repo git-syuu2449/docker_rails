@@ -41,7 +41,7 @@ const doSearch = async () => {
     })
     .then(res => {
       // 一覧を更新
-      console.log(res.data)
+      console.log(res)
       datas.value = res.data
     })
     success.value = true

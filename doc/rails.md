@@ -260,7 +260,76 @@ usersと書いてあるところをadminsに変更して実施する。
 
 ## devise-jwt導入
 
-Apiでの認証に使用する
+Apiでの認証に使用する  
+方針として、以下の方針を採用する
+
+- WebとAPIの混在
+- クッキー認証とJWT認証の混在
+- ログイン時、API通信でログインを行う（自前）
+　この時にJWTを発行し、ローカルストレージに保持しておく。
+　ログイン成功後に本来のdeviseのログイン処理を行う。
+- API通信時にローカルストレージに保持したJWTを利用して認証を行う。
+
+devise自体はjwtに対応しておらず、拡張が必要。  
+追加、修正をするファイルは以下
+
+
+1. 認証が必要なAPI系コントローラに以下項目を追加
+
+```rb
+devise
+・・・
+:jwt_authenticatable,
+jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
+```
+
+2. `users/sessions_controller.rb`をオーバーライド
+
+ログイン時にjwtを保持する処理の追加をする。
+
+
+3. `app/controllers/application_controller.rb`
+
+3. `config/initializers/devise.rb`を編集
+
+```rb
+
+  # jwtの設定
+  config.jwt do |jwt|
+    # credentialsの鍵
+    jwt.secret = Rails.application.credentials.devise[:jwt_secret_key]
+    # ログイン時(user_session_path)
+    jwt.dispatch_requests = [
+      ['POST', %r{^/users/sign_in$}]
+    ]
+    # ログアウト時(destroy_user_session_path)
+    jwt.revocation_requests = [
+      ['DELETE', %r{^/users/sign_out$}]
+    ]
+    # APIルートのみJSONで処理
+    jwt.request_formats = {
+      user: [:json]
+    }
+    # 期限の設定
+    jwt.expiration_time = 2.hours.to_i
+  end
+
+```
+
+
+3. 鍵の作成
+
+jwtの保持に必要な鍵の作成を行う。  
+
+rails secret
+
+出力された鍵を`credentials.yml.enc`に追加
+EDITOR=vim bin/rails credentials:edit
+
+```
+devise:
+  jwt_secret_key: 生成したキー
+```
 
 ## Pundit導入
 

@@ -16,7 +16,7 @@ class User < ApplicationRecord
       :jwt_authenticatable, jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
   
   # 権限
-  enum :role, { general: 0, editor: 1, admin: 2 }, prefix: true
+  enum :role, { general: 0, editor: 1, admin: 2 }, prefix: false
 
   def has_role?(target)
     role == target.to_s

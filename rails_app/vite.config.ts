@@ -16,6 +16,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'app/frontend/js'),
       '@components': path.resolve(__dirname, 'app/frontend/js/components'),
       '@css': path.resolve(__dirname, 'app/frontend/css'),
+      '@images': path.resolve(__dirname, 'app/frontend/images'),
     },
   },
   plugins: [
